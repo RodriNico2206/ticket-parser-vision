@@ -1,0 +1,29 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "ticket-parser-ai"
+version = "0.1.0"
+description = "Extract structured purchase ticket items using Vision Multimodal LLMs."
+authors = ["Rodrigo Ayala"]
+readme = "README.md"
+packages = [
+    { include = "ticket_parser_ai", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = ">=2.6.0"
+pydantic-settings = ">=2.2.0"
+openai = ">=1.12.0"
+python-dotenv = ">=1.0.1"
+pillow = ">=10.2.0"
+streamlit = "^1.61.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8.0.0"
+ruff = ">=0.2.0"
+
+[tool.poetry.scripts]
+parse-ticket = "ticket_parser_ai.main:main"
