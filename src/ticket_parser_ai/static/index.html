@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Parser AI</title>
+    <!-- Embedded SVG Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧾</text></svg>">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>🧾 Ticket Parser AI</h1>
+    <div class="grid">
+        <div class="card">
+            <h2>Upload Receipt</h2>
+            <form id="upload-form">
+                <div class="form-group">
+                    <label>API Provider</label>
+                    <select id="provider">
+                        <option value="openrouter">OpenRouter</option>
+                        <option value="groq">Groq</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Receipt Image</label>
+                    <input type="file" id="image-file" accept="image/*" required>
+                </div>
+                <button type="submit" id="parse-btn">Parse Receipt</button>
+            </form>
+            <img id="preview" alt="Receipt preview">
+        </div>
+
+        <div class="card">
+            <h2>Extracted Data</h2>
+            <div id="status" class="status">Upload an image to extract items.</div>
+
+            <div id="results" style="display: none; margin-top: 1rem;">
+                <p><strong>Store:</strong> <span id="res-store"></span></p>
+                <p><strong>Total Amount:</strong> $<span id="res-total"></span></p>
+
+                <h3>Items (Adjust Individual Margins)</h3>
+                <table id="items-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Unit Cost</th>
+                            <th>Margin (%)</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+                <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e2e8f0;">
+
+                <div class="form-group">
+                    <label>Category for All Items</label>
+                    <select id="category">
+                        <option value="Comestibles">Comestibles</option>
+                        <option value="Libreria">Libreria</option>
+                        <option value="Bebidas">Bebidas</option>
+                        <option value="Utensilios">Utensilios</option>
+                        <option value="Panaderia">Panaderia</option>
+                    </select>
+                </div>
+                <button id="save-btn" class="save-btn">🚀 Save to Google Sheets</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
