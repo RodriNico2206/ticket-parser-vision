@@ -41,7 +41,9 @@ function renderItemsTable() {
 
         tbody.innerHTML += `
             <tr>
-                <td>${item.product_name}</td>
+                <td>
+                    <input type="text" class="product-name-input" data-index="${index}" value="${item.product_name || ''}">
+                </td>
                 <td>${item.quantity}</td>
                 <td>$${item.unit_price}</td>
                 <td>
@@ -99,12 +101,14 @@ document.getElementById('save-btn').addEventListener('click', async () => {
     status.innerText = 'Saving to Google Sheets...';
     btn.disabled = true;
 
+    const productNameInputs = document.querySelectorAll('.product-name-input');
     const marginInputs = document.querySelectorAll('.margin-input');
     const categorySelects = document.querySelectorAll('.category-select');
 
     const updatedItems = parsedTicket.items.map((item, idx) => {
         return {
             ...item,
+            product_name: productNameInputs[idx].value.trim(),
             profit_margin: parseFloat(marginInputs[idx].value) / 100.0,
             category: categorySelects[idx].value
         };
