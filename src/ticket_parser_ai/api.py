@@ -68,7 +68,7 @@ async def save_sheets(data: SaveSheetsRequest):
         creds_file = Path("credentials.json")
         sheets_service = GoogleSheetsService(
             credentials_path=creds_file,
-            spreadsheet_name="Control_inventario",
+            spreadsheet_name="Control_inventario1",
             worksheet_name="Datos",
         )
         rows_added = sheets_service.append_ticket_data(
