@@ -102,6 +102,13 @@ th {
     color: #334155;
 }
 
+/* Campo de texto editable para el nombre del producto */
+.product-name-input {
+    width: 100%;
+    padding: 0.35rem;
+    font-size: 0.85rem;
+}
+
 /* Ajuste para input de margen dentro de celda */
 .margin-input {
     width: 60px;
