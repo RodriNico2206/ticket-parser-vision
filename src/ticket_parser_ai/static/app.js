@@ -114,11 +114,16 @@ document.getElementById('save-btn').addEventListener('click', async () => {
         };
     });
 
+    const spreadsheetName = document.getElementById('spreadsheet-name').value.trim() || 'Control_inventario';
+    const worksheetName = document.getElementById('worksheet-name').value.trim() || 'Datos';
+
     const payload = {
         ticket: {
             ...parsedTicket,
             items: updatedItems
-        }
+        },
+        spreadsheet_name: spreadsheetName,
+        worksheet_name: worksheetName
     };
 
     try {
@@ -136,5 +141,29 @@ document.getElementById('save-btn').addEventListener('click', async () => {
         status.innerText = 'Error saving to Google Sheets: ' + err.message;
     } finally {
         btn.disabled = false;
+    }
+});
+
+// Exit / Shutdown Server
+document.getElementById('exit-btn').addEventListener('click', async () => {
+    if (!confirm('Are you sure you want to close the application and shut down the server?')) return;
+
+    try {
+        await fetch('/api/exit', { method: 'POST' });
+        document.body.innerHTML = `
+            <div style="text-align:center; padding: 4rem 1rem;">
+                <h1>👋 Application Closed</h1>
+                <p style="color: #64748b; font-size: 1.1rem; margin-top: 0.5rem;">
+                    The FastAPI server has stopped correctly. You can now close this tab.
+                </p>
+            </div>`;
+    } catch (err) {
+        document.body.innerHTML = `
+            <div style="text-align:center; padding: 4rem 1rem;">
+                <h1>👋 Application Closed</h1>
+                <p style="color: #64748b; font-size: 1.1rem; margin-top: 0.5rem;">
+                    The server has stopped responding.
+                </p>
+            </div>`;
     }
 });
