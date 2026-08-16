@@ -7,6 +7,12 @@ class TicketItem(BaseModel):
     quantity: float = Field(description="Quantity purchased")
     unit_price: float = Field(description="Price per unit")
     total_price: float = Field(description="Total price for this item")
+    profit_margin: Optional[float] = Field(
+        default=0.40, description="Custom profit margin for this item (0.0 to 1.0)"
+    )
+    category: Optional[str] = Field(
+        default="Comestibles", description="Individual category for this item"
+    )
 
 
 class TicketData(BaseModel):
