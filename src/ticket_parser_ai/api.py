@@ -1,6 +1,8 @@
+import os
+import signal
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from fastapi import FastAPI, File, Form, HTTPException, Response, UploadFile
+from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, Response, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -19,6 +21,13 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 class SaveSheetsRequest(BaseModel):
     ticket: TicketData
+    spreadsheet_name: str = "Control_inventario"
+    worksheet_name: str = "Datos"
+
+
+def shutdown_server():
+    """Envía la señal de interrupción para cerrar la aplicación."""
+    os.kill(os.getpid(), signal.SIGINT)
 
 
 @app.get("/favicon.ico", include_in_schema=False)
@@ -68,8 +77,8 @@ async def save_sheets(data: SaveSheetsRequest):
         creds_file = Path("credentials.json")
         sheets_service = GoogleSheetsService(
             credentials_path=creds_file,
-            spreadsheet_name="Control_inventario1",
-            worksheet_name="Datos",
+            spreadsheet_name=data.spreadsheet_name,
+            worksheet_name=data.worksheet_name,
         )
         rows_added = sheets_service.append_ticket_data(
             ticket=data.ticket
@@ -77,3 +86,10 @@ async def save_sheets(data: SaveSheetsRequest):
         return {"status": "success", "rows_added": rows_added}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/exit")
+async def exit_app(background_tasks: BackgroundTasks):
+    """Cleanly shuts down the FastAPI server from the web."""
+    background_tasks.add_task(shutdown_server)
+    return {"message": "Server shutting down... You can close this tab."}
