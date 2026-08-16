@@ -28,6 +28,9 @@
                 <button type="submit" id="parse-btn">Parse Receipt</button>
             </form>
             <img id="preview" alt="Receipt preview">
+
+            <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e2e8f0;">
+            <button id="exit-btn" class="exit-btn">🔴 Exit / Stop Server</button>
         </div>
 
         <div class="card">
@@ -54,6 +57,15 @@
                 </table>
 
                 <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e2e8f0;">
+
+                <div class="form-group">
+                    <label for="spreadsheet-name">Spreadsheet Name</label>
+                    <input type="text" id="spreadsheet-name" value="Control_inventario" placeholder="Ej: Control_inventario">
+                </div>
+                <div class="form-group">
+                    <label for="worksheet-name">Worksheet (Tab) Name</label>
+                    <input type="text" id="worksheet-name" value="Datos" placeholder="Ej: Datos">
+                </div>
 
                 <button id="save-btn" class="save-btn">🚀 Save to Google Sheets</button>
             </div>
