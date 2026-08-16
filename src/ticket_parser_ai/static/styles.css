@@ -1,0 +1,144 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+h1 {
+    margin-bottom: 1.5rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+.save-btn {
+    background: #16a34a;
+}
+
+.save-btn:hover {
+    background: #15803d;
+}
+
+#preview {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    margin-top: 1rem;
+    border-radius: 6px;
+    display: none;
+}
+
+/* --- Tabla y Controles Internos --- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+}
+
+th, td {
+    border: 1px solid #e2e8f0;
+    padding: 0.5rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    background: #f1f5f9;
+    font-weight: 600;
+    color: #334155;
+}
+
+/* Ajuste para input de margen dentro de celda */
+.margin-input {
+    width: 60px;
+    padding: 0.35rem 0.2rem;
+    text-align: center;
+    display: inline-block;
+}
+
+/* Desplegable de categoría dentro de cada celda de la tabla */
+.category-select {
+    width: 100%;
+    padding: 0.35rem;
+    font-size: 0.85rem;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+/* Botón de acción para eliminar filas */
+.delete-btn {
+    background: transparent;
+    color: #ef4444;
+    border: none;
+    padding: 0.3rem 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    width: auto;
+    margin-top: 0;
+    line-height: 1;
+}
+
+.delete-btn:hover {
+    background: #fee2e2;
+}
+
+.status {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #475569;
+}
