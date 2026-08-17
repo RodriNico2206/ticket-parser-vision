@@ -1,3 +1,4 @@
+import asyncio
 import os
 import signal
 from pathlib import Path
@@ -25,9 +26,15 @@ class SaveSheetsRequest(BaseModel):
     worksheet_name: str = "Datos"
 
 
-def shutdown_server():
-    """Envía la señal de interrupción para cerrar la aplicación."""
-    os.kill(os.getpid(), signal.SIGINT)
+async def force_shutdown():
+    """Espera a enviar el HTTP 200 y finaliza el proceso padre (Reloader) y el servidor."""
+    await asyncio.sleep(0.5)
+    try:
+        # Envía la señal al proceso padre (Reloader) para simular un Ctrl+C completo
+        os.kill(os.getppid(), signal.SIGINT)
+    except Exception:
+        # Fallback para entornos sin proceso padre o donde difiera el grupo de procesos
+        os.kill(os.getpid(), signal.SIGINT)
 
 
 @app.get("/favicon.ico", include_in_schema=False)
@@ -90,6 +97,6 @@ async def save_sheets(data: SaveSheetsRequest):
 
 @app.post("/api/exit")
 async def exit_app(background_tasks: BackgroundTasks):
-    """Cleanly shuts down the FastAPI server from the web."""
-    background_tasks.add_task(shutdown_server)
+    """Cierra la aplicación y detiene completamente el proceso en la terminal."""
+    background_tasks.add_task(force_shutdown)
     return {"message": "Server shutting down... You can close this tab."}
